@@ -24,6 +24,7 @@ const setup = async () => {
     version: 0,
     status: OrderStatus.Created,
     userId: 'asdffdsa',
+    expiresAt: 'asdf',
     product: {
       id: product.id,
       price: product.price,

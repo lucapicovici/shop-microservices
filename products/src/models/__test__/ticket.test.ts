@@ -3,8 +3,8 @@ import { Product } from '../product';
 it('implements optimistic concurrency control', async () => {
   // Create an instance of the product
   const product = Product.build({
-    title: 'asdf',
-    price: 5,
+    title: 'Marshall JCM800',
+    price: 2000,
     description: 'Lorem ipsum',
     userId: '123',
   });
@@ -35,8 +35,8 @@ it('implements optimistic concurrency control', async () => {
 
 it('increments the version number on multiple saves', async () => {
   const product = Product.build({
-    title: 'concert',
-    price: 5,
+    title: 'Marshall JCM800',
+    price: 2000,
     description: 'Lorem ipsum',
     userId: '123',
   });

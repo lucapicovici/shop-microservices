@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: products-depl
+  name: payments-depl
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: products
+      app: payments
   template:
     metadata:
       labels:
-        app: products
+        app: payments
     spec:
       containers:
-        - name: products
-          image: lucapicovici/products
+        - name: payments
+          image: lucapicovici/payments
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -25,22 +25,27 @@ spec:
             - name: NATS_CLUSTER_ID
               value: shop
             - name: MONGO_URI
-              value: 'mongodb://products-mongo-srv:27017/products'
+              value: 'mongodb://payments-mongo-srv:27017/payments'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   name: jwt-secret
                   key: JWT_KEY
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: products-srv
-# spec:
-#   selector:
-#     app: products
-#   ports:
-#     - name: products
-#       protocol: TCP
-#       port: 3000
-#       targetPort: 3000
+            - name: STRIPE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: stripe-secret
+                  key: STRIPE_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payments-srv
+spec:
+  selector:
+    app: payments
+  ports:
+    - name: payments
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

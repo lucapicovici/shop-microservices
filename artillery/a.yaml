@@ -1,0 +1,25 @@
+config:
+  target: 'http://shop.dev/api'
+  phases:
+    - duration: 1
+      arrivalRate: 1
+  processor: './plugin-random-ip.js'
+
+scenarios:
+  - name: 'Create a new product'
+    flow:
+      - post:
+          beforeRequest: 'setIP'
+          url: '/users/signin'
+          json:
+            email: 'test@test.com'
+            password: 'asdf'
+      - post:
+          headers:
+            X-Forwarded-For: '{{ipAddress}}'
+          url: '/products'
+          json:
+            title: 'ARTILLERY'
+            price: 2
+            description: 'Lorem ipsum'
+          afterResponse: logIP

@@ -9,8 +9,8 @@ it('returns a 404 if the product is not found', async () => {
 });
 
 it('returns the product if the product is found', async () => {
-  const title = 'concert';
-  const price = 20;
+  const title = 'Marshall JCM800';
+  const price = 2000;
   const description = 'Lorem ipsum';
 
   // Create a product by making a post request to the new route

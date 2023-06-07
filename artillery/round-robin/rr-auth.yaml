@@ -1,0 +1,31 @@
+config:
+  target: 'http://shop.dev/api'
+  phases:
+    - duration: 1
+      arrivalRate: 2
+
+scenarios:
+  - name: 'Load test with Round Robin'
+    flow:
+      - post:
+          url: '/users/signin'
+          json:
+            email: 'test@test.com'
+            password: 'test'
+      - post:
+          url: '/products'
+          json:
+            title: 'Test Product'
+            price: 10
+            description: 'Lorem ipsum'
+          capture:
+            json: '$.id'
+            as: 'productId'
+      - get:
+          url: '/products/{{productId}}'
+      - put:
+          url: '/products/{{productId}}'
+          json:
+            title: 'New Title'
+            price: 20
+            description: 'New description'

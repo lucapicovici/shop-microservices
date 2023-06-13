@@ -1,18 +1,22 @@
 config:
   target: 'http://shop.dev/api'
   phases:
-    - duration: 1
-      arrivalRate: 2
+    - duration: 300
+      arrivalRate: 30
+  processor: './plugin-random-ip.js'
 
 scenarios:
-  - name: 'Load test with Round Robin'
+  - name: 'Products test scenario 3'
     flow:
       - post:
+          beforeRequest: setIP
           url: '/users/signin'
           json:
             email: 'test@test.com'
             password: 'test'
       - post:
+          headers:
+            X-Forwarded-For: '{{ipAddress}}'
           url: '/products'
           json:
             title: 'Test Product'
@@ -22,10 +26,15 @@ scenarios:
             json: '$.id'
             as: 'productId'
       - get:
+          headers:
+            X-Forwarded-For: '{{ipAddress}}'
           url: '/products/{{productId}}'
       - put:
+          headers:
+            X-Forwarded-For: '{{ipAddress}}'
           url: '/products/{{productId}}'
           json:
             title: 'New Title'
             price: 20
             description: 'New description'
+          afterResponse: logIP

@@ -19,7 +19,7 @@
   "author": "Luca Picovici",
   "license": "ISC",
   "dependencies": {
-    "@iceydc-projects/shop-common": "^1.0.7",
+    "@iceydc-projects/shop-common": "^1.0.8",
     "@types/cookie-session": "^2.0.44",
     "@types/express": "^4.17.15",
     "@types/jsonwebtoken": "^9.0.1",

@@ -8,8 +8,7 @@ declare global {
 
 jest.mock('../nats-wrapper');
 
-process.env.STRIPE_KEY =
-  'sk_test_51GyhSUBVEY9pRgXUHQ77nJ3EonwBUPmB2UM5nLvDZ0AsKOTGoLYYPXcNddcFSkQYvocpzN7FIKw7pTHHKlPmNW9I00nQwENkkt';
+process.env.STRIPE_KEY = '';
 
 let mongo: any;
 beforeAll(async () => {
@@ -38,7 +37,7 @@ afterAll(async () => {
 });
 
 global.signin = (id?: string) => {
-  // Faking a JWT because there's no signup route on this service!
+  // Faking a JWT because there's no signup route on this service
   // Build a JWT payload { id, email }
   const payload = {
     id: id || new mongoose.Types.ObjectId().toHexString(),

@@ -26,22 +26,17 @@ function setIP(requestParams, context, ee, next) {
   // Set the IP address as a custom request header
   requestParams.headers['X-Forwarded-For'] = ipAddress;
 
-  // Log the IP address for each user
-  // console.log(`User IP: ${ipAddress}`);
-
   return next();
 }
 
 function logIP(requestParams, response, context, ee, next) {
   let resHeaders = response.req.res.rawHeaders;
-  // console.log(resHeaders);
   let xBackendServer = resHeaders[resHeaders.length - 1];
 
   const headers = parseHeaders(response.req.socket._httpMessage._header);
   const xForwardedFor = headers['x-forwarded-for'];
 
   console.log(`User ${xForwardedFor} to backend ${xBackendServer}`);
-  // console.log('END OF ARILLERY**************************************');
 
   next();
 }

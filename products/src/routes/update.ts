@@ -40,12 +40,10 @@ router.put(
       throw new BadRequestError('Cannot edit an ordered product');
     }
 
-    // Make sure the user who updates the product owns it first
     if (product.userId !== req.currentUser!.id) {
       throw new NotAuthorizedError();
     }
 
-    // Set method only makes changes to the document in the memory, does not persist in DB
     product.set({
       title: req.body.title,
       price: req.body.price,

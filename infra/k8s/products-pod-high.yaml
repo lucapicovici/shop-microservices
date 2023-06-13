@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: products-pod-high
+spec:
+  containers:
+    - name: products-pod-high
+      image: lucapicovici/products
+      env:
+        - name: NATS_CLIENT_ID
+          value: 'products-pod-high'
+        - name: NATS_URL
+          value: 'http://nats-srv:4222'
+        - name: NATS_CLUSTER_ID
+          value: shop
+        - name: MONGO_URI
+          value: 'mongodb://products-mongo-srv:27017/products'
+        - name: JWT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: jwt-secret
+              key: JWT_KEY
+      resources:
+        limits:
+          cpu: '4'
+          memory: '4Gi'
+        requests:
+          cpu: '3'
+          memory: '3Gi'

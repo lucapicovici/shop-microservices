@@ -9,14 +9,17 @@ data:
     }
 
     http {
+      log_format upstream '$remote_addr - $upstream_addr - [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';
+      access_log /var/log/nginx/access.logs upstream;
+
       set_real_ip_from 0.0.0.0/0;
       real_ip_header x-original-forwarded-for;
 
       upstream products {
         ip_hash;
-        server 10.1.5.179:3000;
-        server 10.1.5.181:3000;
-        server 10.1.5.182:3000;
+        server 10.1.6.202:3000;
+        server 10.1.6.206:3000;
+        server 10.1.6.204:3000;
       }
 
       server {

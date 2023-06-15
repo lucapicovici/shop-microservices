@@ -48,9 +48,9 @@ it('returns an error if an invalid price is provided', async () => {
     .post('/api/products')
     .set('Cookie', global.signin())
     .send({
-      title: 'asdf',
+      title: 'Marshall JCM800',
       price: -10,
-      description: 'Lorem ipsum',
+      description: '100W Tube Amp Head',
     })
     .expect(400);
 
@@ -58,8 +58,8 @@ it('returns an error if an invalid price is provided', async () => {
     .post('/api/products')
     .set('Cookie', global.signin())
     .send({
-      title: 'asdf',
-      description: 'Lorem ipsum',
+      title: 'Marshall JCM800',
+      description: '100W Tube Amp Head',
     })
     .expect(400);
 });
